@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Infrastructure.Tests (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Infrastructure.Tests (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
