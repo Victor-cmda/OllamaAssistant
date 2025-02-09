@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UI.Views;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -26,11 +27,24 @@ namespace UI
         public MainWindow()
         {
             this.InitializeComponent();
+            ContentFrame.Navigate(typeof(HomePage));
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
+        private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            myButton.Content = "Clicked";
+            if (args.SelectedItemContainer != null)
+            {
+                var navItemTag = args.SelectedItemContainer.Tag.ToString();
+
+                Type pageType = navItemTag switch
+                {
+                    "home" => typeof(HomePage),
+                    "models" => typeof(ModelsPage),
+                    _ => typeof(HomePage)
+                };
+
+                ContentFrame.Navigate(pageType);
+            }
         }
     }
 }

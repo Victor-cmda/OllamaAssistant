@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="UI.Controls.AddModelDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="12" Padding="16" Width="450">
+        <TextBlock Text="Digite o nome do modelo ou escolha uma sugestão:"
+                  Style="{StaticResource SubtitleTextBlockStyle}"/>
+
+        <AutoSuggestBox x:Name="ModelNameBox"
+                        PlaceholderText="Ex: llama2, codellama, mistral..."
+                        Width="400"
+                        HorizontalAlignment="Left"/>
+
+        <TextBlock Text="Sugestões populares:"
+                  Style="{StaticResource BodyStrongTextBlockStyle}"
+                  Margin="0,8,0,0"/>
+
+        <ItemsRepeater x:Name="PopularModels">
+            <ItemsRepeater.Layout>
+                <StackLayout Spacing="8"/>
+            </ItemsRepeater.Layout>
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource AccentButtonStyle}"
+                            Click="ModelSuggestion_Click"
+                            HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE8A5;"/>
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text="{Binding Description}"
+                                     Opacity="0.8"
+                                     FontStyle="Italic"/>
+                        </StackPanel>
+                    </Button>
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+
+        <HyperlinkButton Content="Ver biblioteca completa de modelos"
+                         NavigateUri="https://ollama.com/library"
+                         Click="ViewLibrary_Click"/>
+
+        <ProgressBar x:Name="DownloadProgress"
+                     Minimum="0"
+                     Maximum="100"
+                     Height="4"
+                     Margin="0,8"/>
+
+        <TextBlock x:Name="StatusText"
+                  Style="{StaticResource CaptionTextBlockStyle}"/>
+
+        <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Spacing="8">
+            <Button x:Name="CancelButton" 
+                    Content="Cancelar"
+                    Click="CancelButton_Click"/>
+            <Button x:Name="DownloadButton"
+                    Content="Baixar Modelo"
+                    Style="{StaticResource AccentButtonStyle}"
+                    Click="DownloadButton_Click"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
